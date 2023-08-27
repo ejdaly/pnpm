@@ -6,18 +6,7 @@ import { envUse } from './envUse'
 import { type NvmNodeCommandOptions } from './node'
 import { envList } from './envList'
 
-export function rcOptionsTypes () {
-  return {}
-}
-
-export function cliOptionsTypes () {
-  return {
-    global: Boolean,
-    remote: Boolean,
-  }
-}
-
-export const commandNames = ['env']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions'
 
 export function help () {
   return renderHelp({

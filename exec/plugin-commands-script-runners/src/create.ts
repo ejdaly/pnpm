@@ -1,11 +1,9 @@
 import renderHelp from 'render-help'
 import { docsUrl } from '@pnpm/cli-utils'
-import { types } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
-import pick from 'ramda/src/pick'
 import * as dlx from './dlx'
 
-export const commandNames = ['create']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/create'
 
 export async function handler (_opts: dlx.DlxCommandOptions, params: string[]) {
   const [packageName, ...packageArgs] = params
@@ -20,20 +18,6 @@ export async function handler (_opts: dlx.DlxCommandOptions, params: string[]) {
 
   const createPackageName = convertToCreateName(packageName)
   return dlx.handler(_opts, [createPackageName, ...packageArgs])
-}
-
-export function rcOptionsTypes () {
-  return {
-    ...pick([
-      'use-node-version',
-    ], types),
-  }
-}
-
-export function cliOptionsTypes () {
-  return {
-    ...rcOptionsTypes(),
-  }
 }
 
 export function help () {

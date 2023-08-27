@@ -6,14 +6,7 @@ import { PnpmError } from '@pnpm/error'
 import { writeProjectManifest } from '@pnpm/write-project-manifest'
 import renderHelp from 'render-help'
 import { parseRawConfig } from './utils'
-
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return {}
-}
-
-export const commandNames = ['init']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions'
 
 export function help () {
   return renderHelp({

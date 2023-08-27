@@ -1,13 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import { docsUrl } from '@pnpm/cli-utils'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { install } from '@pnpm/plugin-commands-installation'
 import { readPackageJsonFromDir } from '@pnpm/read-package-json'
 import { tryReadProjectManifest } from '@pnpm/read-project-manifest'
 import glob from 'fast-glob'
 import normalizePath from 'normalize-path'
-import pick from 'ramda/src/pick'
 import equals from 'ramda/src/equals'
 import execa from 'safe-execa'
 import escapeStringRegexp from 'escape-string-regexp'
@@ -17,13 +16,7 @@ import { writePackage } from './writePackage'
 import { parseWantedDependency } from '@pnpm/parse-wanted-dependency'
 import packlist from 'npm-packlist'
 
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return pick(['patches-dir'], allTypes)
-}
-
-export const commandNames = ['patch-commit']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/patchCommit'
 
 export function help () {
   return renderHelp({

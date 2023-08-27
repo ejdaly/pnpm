@@ -4,11 +4,13 @@ import { test } from '@pnpm/plugin-commands-script-runners'
 import renderHelp from 'render-help'
 import { type PnpmOptions } from '../types'
 
-export const cliOptionsTypes = install.cliOptionsTypes
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from '../completion/installTest'
 
-export const rcOptionsTypes = install.rcOptionsTypes
+// export const cliOptionsTypes = install.cliOptionsTypes
 
-export const commandNames = ['install-test', 'it']
+// export const rcOptionsTypes = install.rcOptionsTypes
+
+// export const commandNames = ['install-test', 'it']
 
 export function help () {
   return renderHelp({

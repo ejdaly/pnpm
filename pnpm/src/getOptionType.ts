@@ -47,14 +47,15 @@ function getOptionType (
 }
 
 export function getLastOption (completionCtx: CompletionCtx) {
-  if (isOption(completionCtx.prev)) return completionCtx.prev
+  if (isOption(completionCtx.prev || '')) return completionCtx.prev
   if (completionCtx.lastPartial === '' || completionCtx.words <= 1) return null
   const words = completionCtx.line.slice(0, completionCtx.point).trim().split(/\s+/)
   const lastWord = words[words.length - 2]
-  return isOption(lastWord) ? lastWord : null
+  return isOption(lastWord || '') ? lastWord : null
 }
 
 function isOption (word: string) {
+  if (!word) return false
   return word.startsWith('--') && word.length >= 3 ||
     word.startsWith('-') && word.length >= 2
 }

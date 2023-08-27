@@ -3,34 +3,11 @@ import {
   readDepNameCompletions,
 } from '@pnpm/cli-utils'
 import { type CompletionFunc } from '@pnpm/command'
-import { types as allTypes } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import { licensesList, type LicensesCommandOptions } from './licensesList'
 
-export function rcOptionsTypes () {
-  return {
-    ...pick(
-      ['dev', 'global-dir', 'global', 'json', 'long', 'optional', 'production'],
-      allTypes
-    ),
-    compatible: Boolean,
-    table: Boolean,
-  }
-}
-
-export const cliOptionsTypes = () => ({
-  ...rcOptionsTypes(),
-  recursive: Boolean,
-})
-
-export const shorthands = {
-  D: '--dev',
-  P: '--production',
-}
-
-export const commandNames = ['licenses']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions'
 
 export function help () {
   return renderHelp({

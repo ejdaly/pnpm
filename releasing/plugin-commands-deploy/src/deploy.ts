@@ -10,17 +10,7 @@ import rimraf from '@zkochan/rimraf'
 import renderHelp from 'render-help'
 import { deployHook } from './deployHook'
 
-export const shorthands = install.shorthands
-
-export function rcOptionsTypes () {
-  return install.rcOptionsTypes()
-}
-
-export function cliOptionsTypes () {
-  return install.cliOptionsTypes()
-}
-
-export const commandNames = ['deploy']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions'
 
 export function help () {
   return renderHelp({

@@ -3,15 +3,7 @@ import { docsUrl } from '@pnpm/cli-utils'
 import { logger } from '@pnpm/logger'
 import { type Config } from '@pnpm/config'
 
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return {}
-}
-
-export const shorthands = {}
-
-export const commandNames = ['doctor']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions'
 
 export function help () {
   return renderHelp({

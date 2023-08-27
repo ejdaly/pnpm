@@ -1,87 +1,11 @@
 import { docsUrl } from '@pnpm/cli-utils'
 import { FILTERING, OPTIONS, UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { types as allTypes } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import { type InstallCommandOptions } from './install'
 import { installDeps } from './installDeps'
 
-export function rcOptionsTypes () {
-  return pick([
-    'cache-dir',
-    'child-concurrency',
-    'engine-strict',
-    'fetch-retries',
-    'fetch-retry-factor',
-    'fetch-retry-maxtimeout',
-    'fetch-retry-mintimeout',
-    'fetch-timeout',
-    'force',
-    'global-bin-dir',
-    'global-dir',
-    'global-pnpmfile',
-    'global',
-    'hoist',
-    'hoist-pattern',
-    'https-proxy',
-    'ignore-pnpmfile',
-    'ignore-scripts',
-    'ignore-workspace-root-check',
-    'link-workspace-packages',
-    'lockfile-dir',
-    'lockfile-directory',
-    'lockfile-only',
-    'lockfile',
-    'modules-dir',
-    'network-concurrency',
-    'node-linker',
-    'noproxy',
-    'npmPath',
-    'package-import-method',
-    'pnpmfile',
-    'prefer-offline',
-    'production',
-    'proxy',
-    'public-hoist-pattern',
-    'registry',
-    'reporter',
-    'save-dev',
-    'save-exact',
-    'save-optional',
-    'save-peer',
-    'save-prefix',
-    'save-prod',
-    'save-workspace-protocol',
-    'shamefully-flatten',
-    'shamefully-hoist',
-    'shared-workspace-lockfile',
-    'side-effects-cache-readonly',
-    'side-effects-cache',
-    'store',
-    'store-dir',
-    'strict-peer-dependencies',
-    'unsafe-perm',
-    'offline',
-    'only',
-    'optional',
-    'use-running-store-server',
-    'use-store-server',
-    'verify-store-integrity',
-    'virtual-store-dir',
-  ], allTypes)
-}
-
-export function cliOptionsTypes () {
-  return {
-    ...rcOptionsTypes(),
-    recursive: Boolean,
-    save: Boolean,
-    workspace: Boolean,
-  }
-}
-
-export const commandNames = ['add']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/add'
 
 export function help () {
   return renderHelp({

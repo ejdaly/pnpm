@@ -4,18 +4,8 @@ import { type Config } from '@pnpm/config'
 import { createOrConnectStoreController, type CreateStoreControllerOptions } from '@pnpm/store-connection-manager'
 import { type InstallOptions, mutateModulesInSingleProject } from '@pnpm/core'
 import renderHelp from 'render-help'
-import { cliOptionsTypes } from './install'
 
-export const rcOptionsTypes = cliOptionsTypes
-
-export { cliOptionsTypes }
-
-export const shorthands = {
-  D: '--dev',
-  P: '--production',
-}
-
-export const commandNames = ['fetch']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions/fetch'
 
 export function help () {
   return renderHelp({

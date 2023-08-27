@@ -1,23 +1,22 @@
 import {
   docsUrl,
-  readDepNameCompletions,
   readProjectManifest,
 } from '@pnpm/cli-utils'
-import { type CompletionFunc } from '@pnpm/command'
 import { FILTERING, OPTIONS, UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
 import { arrayOfWorkspacePackagesToMap, findWorkspacePackages } from '@pnpm/workspace.find-packages'
 import { getAllDependenciesFromManifest } from '@pnpm/manifest-utils'
 import { createOrConnectStoreController, type CreateStoreControllerOptions } from '@pnpm/store-connection-manager'
 import { type DependenciesField } from '@pnpm/types'
 import { mutateModulesInSingleProject } from '@pnpm/core'
-import pick from 'ramda/src/pick'
 import without from 'ramda/src/without'
 import renderHelp from 'render-help'
 import { getOptionsFromRootManifest } from './getOptionsFromRootManifest'
 import { getSaveType } from './getSaveType'
 import { recursive } from './recursive'
+
+export { cliOptionsTypes, rcOptionsTypes, commandNames, completion } from './completions/remove'
 
 class RemoveMissingDepsError extends PnpmError {
   constructor (
@@ -42,37 +41,6 @@ class RemoveMissingDepsError extends PnpmError {
     super('CANNOT_REMOVE_MISSING_DEPS', message)
   }
 }
-
-export function rcOptionsTypes () {
-  return pick([
-    'cache-dir',
-    'global-dir',
-    'global-pnpmfile',
-    'global',
-    'lockfile-dir',
-    'lockfile-directory',
-    'lockfile-only',
-    'lockfile',
-    'node-linker',
-    'package-import-method',
-    'pnpmfile',
-    'reporter',
-    'save-dev',
-    'save-optional',
-    'save-prod',
-    'shared-workspace-lockfile',
-    'store',
-    'store-dir',
-    'strict-peer-dependencies',
-    'virtual-store-dir',
-  ], allTypes)
-}
-
-export const cliOptionsTypes = () => ({
-  ...rcOptionsTypes(),
-  ...pick(['force'], allTypes),
-  recursive: Boolean,
-})
 
 export function help () {
   return renderHelp({
@@ -114,14 +82,6 @@ For options that may be used with `-r`, see "pnpm help recursive"',
     url: docsUrl('remove'),
     usages: ['pnpm remove <pkg>[@<version>]...'],
   })
-}
-
-// Unlike npm, pnpm does not treat "r" as an alias of "remove".
-// This way we avoid the confusion about whether "pnpm r" means remove, run, or recursive.
-export const commandNames = ['remove', 'uninstall', 'rm', 'un', 'uni']
-
-export const completion: CompletionFunc = async (cliOpts, params) => {
-  return readDepNameCompletions(cliOpts.dir as string)
 }
 
 export async function handler (

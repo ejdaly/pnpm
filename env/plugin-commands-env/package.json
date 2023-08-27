@@ -64,6 +64,7 @@
     "path-name": "^1.0.0"
   },
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./lib/completions": "./lib/completions.js"
   }
 }

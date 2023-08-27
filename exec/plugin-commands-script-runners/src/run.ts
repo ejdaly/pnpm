@@ -5,9 +5,8 @@ import {
   readProjectManifestOnly,
   tryReadProjectManifest,
 } from '@pnpm/cli-utils'
-import { type CompletionFunc } from '@pnpm/command'
 import { FILTERING, UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
 import {
   runLifecycleHook,
@@ -15,7 +14,6 @@ import {
   type RunLifecycleHookOptions,
 } from '@pnpm/lifecycle'
 import { type PackageScripts, type ProjectManifest } from '@pnpm/types'
-import pick from 'ramda/src/pick'
 import realpathMissing from 'realpath-missing'
 import renderHelp from 'render-help'
 import { runRecursive, type RecursiveRunOpts, getSpecifiedScripts as getSpecifiedScriptWithoutStartCommand } from './runRecursive'
@@ -23,9 +21,7 @@ import { existsInDir } from './existsInDir'
 import { handler as exec } from './exec'
 import { buildCommandNotFoundHint } from './buildCommandNotFoundHint'
 
-export const IF_PRESENT_OPTION = {
-  'if-present': Boolean,
-}
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands, completion, IF_PRESENT_OPTION } from './completions/run'
 
 export const IF_PRESENT_OPTION_HELP = {
   description: 'Avoid exiting with a non-zero exit code when the script is undefined',
@@ -54,55 +50,6 @@ export const REPORT_SUMMARY_OPTION_HELP = {
   description: 'Save the execution results of every package to "pnpm-exec-summary.json". Useful to inspect the execution time and status of each package.',
   name: '--report-summary',
 }
-
-export const shorthands = {
-  parallel: [
-    '--workspace-concurrency=Infinity',
-    '--no-sort',
-    '--stream',
-    '--recursive',
-  ],
-  sequential: [
-    '--workspace-concurrency=1',
-  ],
-}
-
-export function rcOptionsTypes () {
-  return {
-    ...pick([
-      'npm-path',
-      'use-node-version',
-    ], allTypes),
-  }
-}
-
-export function cliOptionsTypes () {
-  return {
-    ...pick([
-      'bail',
-      'sort',
-      'unsafe-perm',
-      'use-node-version',
-      'workspace-concurrency',
-      'scripts-prepend-node-path',
-    ], allTypes),
-    ...IF_PRESENT_OPTION,
-    recursive: Boolean,
-    reverse: Boolean,
-    'resume-from': String,
-    'report-summary': Boolean,
-  }
-}
-
-export const completion: CompletionFunc = async (cliOpts, params) => {
-  if (params.length > 0) {
-    return []
-  }
-  const manifest = await readProjectManifestOnly(cliOpts.dir as string ?? process.cwd(), cliOpts)
-  return Object.keys(manifest.scripts ?? {}).map((name) => ({ name }))
-}
-
-export const commandNames = ['run', 'run-script']
 
 export function help () {
   return renderHelp({

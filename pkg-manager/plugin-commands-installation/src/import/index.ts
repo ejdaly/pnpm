@@ -26,6 +26,8 @@ import { getOptionsFromRootManifest } from '../getOptionsFromRootManifest'
 import { recursive } from '../recursive'
 import { yarnLockFileKeyNormalizer } from './yarnUtil'
 
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from '../completions/import'
+
 interface NpmPackageLock {
   dependencies: LockedPackagesMap
   packages: LockedPackagesMap
@@ -74,12 +76,6 @@ interface YarnLock2Struct {
   object: YarnPackageLock
 }
 
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return {}
-}
-
 export function help () {
   return renderHelp({
     description: `Generates ${WANTED_LOCKFILE} from an npm package-lock.json (or npm-shrinkwrap.json, yarn.lock) file.`,
@@ -89,8 +85,6 @@ export function help () {
     ],
   })
 }
-
-export const commandNames = ['import']
 
 export type ImportCommandOptions = Pick<Config,
 | 'allProjects'

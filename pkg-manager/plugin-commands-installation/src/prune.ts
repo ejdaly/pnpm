@@ -1,21 +1,9 @@
 import { docsUrl } from '@pnpm/cli-utils'
 import { UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { types as allTypes } from '@pnpm/config'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import * as install from './install'
 
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return pick([
-    'dev',
-    'optional',
-    'production',
-  ], allTypes)
-}
-
-export const commandNames = ['prune']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/prune'
 
 export function help () {
   return renderHelp({

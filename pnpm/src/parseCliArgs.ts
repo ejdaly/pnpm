@@ -4,7 +4,7 @@ import {
   getCommandFullName,
   GLOBAL_OPTIONS,
   shorthandsByCommandName,
-} from './cmd'
+} from './completion'
 import { shorthands as universalShorthands } from './shorthands'
 
 const RENAMED_OPTIONS = {

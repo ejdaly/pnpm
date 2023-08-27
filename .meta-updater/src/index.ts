@@ -230,6 +230,20 @@ async function updateManifest (workspaceDir: string, manifest: ProjectManifest, 
     }
     delete manifest.dependencies['@types/ramda']
   }
+  // default exports
+  const pkg_exports: Record<string, string> = {
+    '.': manifest.name === 'pnpm' ? './package.json' : './lib/index.js'
+  };
+  // if a package has a src/completions.ts, then make it available
+  // via direct export path
+  if (fs.existsSync(path.join(dir, 'src/completions.ts'))) {
+    pkg_exports["./lib/completions"] = "./lib/completions.js"
+  }
+  // specifically for @pnpm/config - we want to make the types exportable directly
+  // (for the completions to use, without needing to import the entire @pnpm/config module)
+  if (manifest.name === "@pnpm/config") {
+    pkg_exports["./lib/types"] = "./lib/types.js"
+  }
   return {
     ...manifest,
     bugs: {
@@ -244,8 +258,6 @@ async function updateManifest (workspaceDir: string, manifest: ProjectManifest, 
     license: 'MIT',
     repository,
     scripts,
-    exports: {
-      '.': manifest.name === 'pnpm' ? './package.json' : './lib/index.js',
-    },
+    exports: pkg_exports
   }
 }

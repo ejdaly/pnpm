@@ -1,26 +1,11 @@
-import { types as allTypes } from '@pnpm/config'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import {
   handler as run,
-  IF_PRESENT_OPTION,
   IF_PRESENT_OPTION_HELP,
   type RunOpts,
 } from './run'
 
-export function rcOptionsTypes () {
-  return {
-    ...pick([
-      'npm-path',
-    ], allTypes),
-  }
-}
-
-export function cliOptionsTypes () {
-  return IF_PRESENT_OPTION
-}
-
-export const commandNames = ['restart']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/restart'
 
 export function help () {
   return renderHelp({

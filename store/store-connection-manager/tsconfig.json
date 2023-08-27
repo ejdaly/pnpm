@@ -28,6 +28,9 @@
       "path": "../server"
     },
     {
+      "path": "../store-controller-types"
+    },
+    {
       "path": "../store-path"
     }
   ],

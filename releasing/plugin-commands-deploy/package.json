@@ -10,7 +10,8 @@
     "!*.map"
   ],
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./lib/completions": "./lib/completions.js"
   },
   "engines": {
     "node": ">=16.14"

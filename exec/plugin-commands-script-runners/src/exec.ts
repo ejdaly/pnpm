@@ -1,6 +1,6 @@
 import path from 'path'
 import { docsUrl, type RecursiveSummary, throwOnCommandFail, readProjectManifestOnly } from '@pnpm/cli-utils'
-import { type Config, types } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { makeNodeRequireOption } from '@pnpm/lifecycle'
 import { logger } from '@pnpm/logger'
 import { tryReadProjectManifest } from '@pnpm/read-project-manifest'
@@ -9,7 +9,6 @@ import { type Project, type ProjectsGraph } from '@pnpm/types'
 import execa from 'execa'
 import pLimit from 'p-limit'
 import PATH from 'path-name'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import { existsInDir } from './existsInDir'
 import { makeEnv } from './makeEnv'
@@ -17,40 +16,12 @@ import {
   PARALLEL_OPTION_HELP,
   REPORT_SUMMARY_OPTION_HELP,
   RESUME_FROM_OPTION_HELP,
-  shorthands as runShorthands,
 } from './run'
 import { PnpmError } from '@pnpm/error'
 import which from 'which'
 import writeJsonFile from 'write-json-file'
 import { getNearestProgram, getNearestScript } from './buildCommandNotFoundHint'
-
-export const shorthands = {
-  parallel: runShorthands.parallel,
-  c: '--shell-mode',
-}
-
-export const commandNames = ['exec']
-
-export function rcOptionsTypes () {
-  return {
-    ...pick([
-      'bail',
-      'sort',
-      'use-node-version',
-      'unsafe-perm',
-      'workspace-concurrency',
-    ], types),
-    'shell-mode': Boolean,
-    'resume-from': String,
-    'report-summary': Boolean,
-  }
-}
-
-export const cliOptionsTypes = () => ({
-  ...rcOptionsTypes(),
-  recursive: Boolean,
-  reverse: Boolean,
-})
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands, completion } from './completions/exec'
 
 export function help () {
   return renderHelp({

@@ -12,6 +12,10 @@ ${COMPATIBILITY_PAGE}`)
   process.exit(1)
 }
 
+if (process.argv[2] === "completion") {
+  return require("../dist/completion/pnpmCompletion.cjs");
+}
+
 global['pnpm__startedAt'] = Date.now()
 require('../dist/pnpm.cjs')
 

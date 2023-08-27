@@ -1,26 +1,15 @@
 import { docsUrl } from '@pnpm/cli-utils'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
 import { logger, type LogBase } from '@pnpm/logger'
 import { createOrConnectStoreController, type CreateStoreControllerOptions } from '@pnpm/store-connection-manager'
 import { getStorePath } from '@pnpm/store-path'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import { storeAdd } from './storeAdd'
 import { storePrune } from './storePrune'
 import { storeStatus } from './storeStatus'
 
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return pick([
-    'registry',
-    'store',
-    'store-dir',
-  ], allTypes)
-}
-
-export const commandNames = ['store']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, completion } from './completions'
 
 export function help () {
   return renderHelp({

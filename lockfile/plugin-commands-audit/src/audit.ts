@@ -1,7 +1,7 @@
 import { audit, type AuditReport, type AuditVulnerabilityCounts } from '@pnpm/audit'
 import { createGetAuthHeaderByURI } from '@pnpm/network.auth-header'
 import { docsUrl, TABLE_OPTIONS } from '@pnpm/cli-utils'
-import { type Config, types as allTypes, type UniversalOptions } from '@pnpm/config'
+import { type Config, type UniversalOptions } from '@pnpm/config'
 import { WANTED_LOCKFILE } from '@pnpm/constants'
 import { PnpmError } from '@pnpm/error'
 import { readWantedLockfile } from '@pnpm/lockfile-file'
@@ -9,10 +9,11 @@ import { type Registries } from '@pnpm/types'
 import { table } from '@zkochan/table'
 import chalk from 'chalk'
 import difference from 'ramda/src/difference'
-import pick from 'ramda/src/pick'
 import pickBy from 'ramda/src/pickBy'
 import renderHelp from 'render-help'
 import { fix } from './fix'
+
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions'
 
 // eslint-disable
 const AUDIT_LEVEL_NUMBER = {
@@ -41,31 +42,6 @@ const AUDIT_TABLE_OPTIONS = {
 // eslint-enable
 
 const MAX_PATHS_COUNT = 3
-
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return {
-    ...pick([
-      'dev',
-      'json',
-      'only',
-      'optional',
-      'production',
-      'registry',
-    ], allTypes),
-    'audit-level': ['low', 'moderate', 'high', 'critical'],
-    fix: Boolean,
-    'ignore-registry-errors': Boolean,
-  }
-}
-
-export const shorthands = {
-  D: '--dev',
-  P: '--production',
-}
-
-export const commandNames = ['audit']
 
 export function help () {
   return renderHelp({

@@ -2,13 +2,7 @@ import { docsUrl } from '@pnpm/cli-utils'
 import { PnpmError } from '@pnpm/error'
 import renderHelp from 'render-help'
 
-export const rcOptionsTypes = () => ({})
-
-export const cliOptionsTypes = () => ({})
-
-export const shorthands = {}
-
-export const commandNames = ['ci', 'clean-install', 'ic', 'install-clean']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions/ci'
 
 export function help () {
   return renderHelp({

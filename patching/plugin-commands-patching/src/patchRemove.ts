@@ -2,22 +2,13 @@ import path from 'path'
 import fs from 'fs/promises'
 import { docsUrl } from '@pnpm/cli-utils'
 import { install } from '@pnpm/plugin-commands-installation'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { tryReadProjectManifest } from '@pnpm/read-project-manifest'
 import { PnpmError } from '@pnpm/error'
 import renderHelp from 'render-help'
 import { prompt } from 'enquirer'
-import pick from 'ramda/src/pick'
 
-export function rcOptionsTypes () {
-  return pick([], allTypes)
-}
-
-export function cliOptionsTypes () {
-  return { ...rcOptionsTypes() }
-}
-
-export const commandNames = ['patch-remove']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/patchRemove'
 
 export function help () {
   return renderHelp({

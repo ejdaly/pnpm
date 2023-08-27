@@ -1,18 +1,18 @@
 import path from 'path'
-import { types as allTypes } from '@pnpm/config'
 import { docsUrl } from '@pnpm/cli-utils'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 
-export const rcOptionsTypes = cliOptionsTypes
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from '../completion/root'
 
-export function cliOptionsTypes () {
-  return pick([
-    'global',
-  ], allTypes)
-}
+// export const rcOptionsTypes = cliOptionsTypes
 
-export const commandNames = ['root']
+// export function cliOptionsTypes () {
+//   return pick([
+//     'global',
+//   ], allTypes)
+// }
+
+// export const commandNames = ['root']
 
 export function help () {
   return renderHelp({

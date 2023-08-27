@@ -1,12 +1,11 @@
 import { docsUrl, readProjectManifestOnly } from '@pnpm/cli-utils'
 import { FILTERING, UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { type LogBase } from '@pnpm/logger'
 import {
   createOrConnectStoreController,
   type CreateStoreControllerOptions,
 } from '@pnpm/store-connection-manager'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import {
   rebuildProjects,
@@ -14,27 +13,7 @@ import {
 } from './implementation'
 import { recursiveRebuild } from './recursive'
 
-export function rcOptionsTypes () {
-  return {
-    ...pick([
-      'npm-path',
-      'reporter',
-      'scripts-prepend-node-path',
-      'unsafe-perm',
-      'store-dir',
-    ], allTypes),
-  }
-}
-
-export function cliOptionsTypes () {
-  return {
-    ...rcOptionsTypes(),
-    pending: Boolean,
-    recursive: Boolean,
-  }
-}
-
-export const commandNames = ['rebuild', 'rb']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions'
 
 export function help () {
   return renderHelp({

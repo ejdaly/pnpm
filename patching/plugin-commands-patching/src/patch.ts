@@ -2,12 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import { applyPatchToDir } from '@pnpm/patching.apply-patch'
 import { docsUrl } from '@pnpm/cli-utils'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { type LogBase } from '@pnpm/logger'
 import {
   type CreateStoreControllerOptions,
 } from '@pnpm/store-connection-manager'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import tempy from 'tempy'
 import { PnpmError } from '@pnpm/error'
@@ -15,19 +14,7 @@ import { type ParseWantedDependencyResult } from '@pnpm/parse-wanted-dependency'
 import { writePackage } from './writePackage'
 import { getPatchedDependency } from './getPatchedDependency'
 
-export function rcOptionsTypes () {
-  return pick([], allTypes)
-}
-
-export function cliOptionsTypes () {
-  return { ...rcOptionsTypes(), 'edit-dir': String, 'ignore-existing': Boolean }
-}
-
-export const shorthands = {
-  d: '--edit-dir',
-}
-
-export const commandNames = ['patch']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions/patch'
 
 export function help () {
   return renderHelp({

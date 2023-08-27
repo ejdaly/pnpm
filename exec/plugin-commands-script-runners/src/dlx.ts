@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { docsUrl } from '@pnpm/cli-utils'
 import { OUTPUT_OPTIONS } from '@pnpm/common-cli-options-help'
-import { type Config, types } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
 import { add } from '@pnpm/plugin-commands-installation'
 import { readPackageJsonFromDir } from '@pnpm/read-package-json'
@@ -10,29 +10,10 @@ import { getBinsFromPackageManifest } from '@pnpm/package-bins'
 import { getStorePath } from '@pnpm/store-path'
 import execa from 'execa'
 import omit from 'ramda/src/omit'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import { makeEnv } from './makeEnv'
 
-export const commandNames = ['dlx']
-
-export const shorthands = {
-  c: '--shell-mode',
-}
-
-export function rcOptionsTypes () {
-  return {
-    ...pick([
-      'use-node-version',
-    ], types),
-    'shell-mode': Boolean,
-  }
-}
-
-export const cliOptionsTypes = () => ({
-  ...rcOptionsTypes(),
-  package: [String, Array],
-})
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions/dlx'
 
 export function help () {
   return renderHelp({

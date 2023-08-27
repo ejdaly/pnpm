@@ -5,18 +5,7 @@ import renderHelp from 'render-help'
 import { type InstallCommandOptions } from './install'
 import { installDeps } from './installDeps'
 
-export function rcOptionsTypes () {
-  return {}
-}
-
-export function cliOptionsTypes () {
-  return {
-    ...rcOptionsTypes(),
-    check: Boolean,
-  }
-}
-
-export const commandNames = ['dedupe']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/dedupe'
 
 export function help () {
   return renderHelp({

@@ -1,36 +1,10 @@
 import { docsUrl } from '@pnpm/cli-utils'
 import { FILTERING, OPTIONS, UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { types as allTypes } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import { handler as list, type ListCommandOptions } from './list'
 
-export function rcOptionsTypes () {
-  return pick([
-    'dev',
-    'global-dir',
-    'global',
-    'json',
-    'long',
-    'only',
-    'optional',
-    'parseable',
-    'production',
-  ], allTypes)
-}
-
-export const cliOptionsTypes = () => ({
-  ...rcOptionsTypes(),
-  recursive: Boolean,
-})
-
-export const shorthands = {
-  D: '--dev',
-  P: '--production',
-}
-
-export const commandNames = ['why']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions/why'
 
 export function help () {
   return renderHelp({

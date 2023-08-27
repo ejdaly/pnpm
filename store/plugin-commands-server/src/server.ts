@@ -1,31 +1,13 @@
 import { docsUrl } from '@pnpm/cli-utils'
 import { OPTIONS, UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { types as allTypes } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
 import { type CreateStoreControllerOptions } from '@pnpm/store-connection-manager'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 import { start } from './start'
 import { status } from './status'
 import { stop } from './stop'
 
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return {
-    ...pick([
-      'store',
-      'store-dir',
-    ], allTypes),
-    background: Boolean,
-    'ignore-stop-requests': Boolean,
-    'ignore-upload-requests': Boolean,
-    port: Number,
-    protocol: ['auto', 'tcp', 'ipc'],
-  }
-}
-
-export const commandNames = ['server']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions'
 
 export function help () {
   return renderHelp({

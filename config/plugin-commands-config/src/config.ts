@@ -6,19 +6,7 @@ import { configSet } from './configSet'
 import { configList } from './configList'
 import { type ConfigCommandOptions } from './ConfigCommandOptions'
 
-export function rcOptionsTypes () {
-  return {}
-}
-
-export function cliOptionsTypes () {
-  return {
-    global: Boolean,
-    location: ['global', 'project'],
-    json: Boolean,
-  }
-}
-
-export const commandNames = ['config', 'c']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/config'
 
 export function help () {
   return renderHelp({

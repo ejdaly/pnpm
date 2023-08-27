@@ -7,7 +7,7 @@ import {
 import colorizeSemverDiff from '@pnpm/colorize-semver-diff'
 import { type CompletionFunc } from '@pnpm/command'
 import { FILTERING, OPTIONS, UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
 import {
   outdatedDepsOfProjects,
@@ -17,7 +17,6 @@ import semverDiff from '@pnpm/semver-diff'
 import { type DependenciesField, type PackageManifest } from '@pnpm/types'
 import { table } from '@zkochan/table'
 import chalk from 'chalk'
-import pick from 'ramda/src/pick'
 import sortWith from 'ramda/src/sortWith'
 import renderHelp from 'render-help'
 import stripAnsi from 'strip-ansi'
@@ -28,36 +27,7 @@ import {
 } from './utils'
 import { outdatedRecursive } from './recursive'
 
-export function rcOptionsTypes () {
-  return {
-    ...pick([
-      'depth',
-      'dev',
-      'global-dir',
-      'global',
-      'long',
-      'optional',
-      'production',
-    ], allTypes),
-    compatible: Boolean,
-    format: ['table', 'list', 'json'],
-  }
-}
-
-export const cliOptionsTypes = () => ({
-  ...rcOptionsTypes(),
-  recursive: Boolean,
-})
-
-export const shorthands = {
-  D: '--dev',
-  P: '--production',
-  table: '--format=table',
-  'no-table': '--format=list',
-  json: '--format=json',
-}
-
-export const commandNames = ['outdated']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions'
 
 export function help () {
   return renderHelp({

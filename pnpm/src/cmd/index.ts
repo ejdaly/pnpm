@@ -27,7 +27,7 @@ import { init } from '@pnpm/plugin-commands-init'
 import pick from 'ramda/src/pick'
 import { type PnpmOptions } from '../types'
 import * as bin from './bin'
-import { createCompletion } from './completion'
+// import { createCompletion } from '../completion/completion'
 import { createHelp } from './help'
 import * as installTest from './installTest'
 import * as recursive from './recursive'
@@ -185,17 +185,17 @@ for (let i = 0; i < commands.length; i++) {
 }
 
 handlerByCommandName.help = createHelp(helpByCommandName)
-handlerByCommandName.completion = createCompletion({
-  cliOptionsTypesByCommandName,
-  completionByCommandName,
-  initialCompletion,
-  shorthandsByCommandName,
-  universalOptionsTypes: GLOBAL_OPTIONS,
-})
+// handlerByCommandName.completion = createCompletion({
+//   cliOptionsTypesByCommandName,
+//   completionByCommandName,
+//   initialCompletion,
+//   shorthandsByCommandName,
+//   universalOptionsTypes: GLOBAL_OPTIONS,
+// })
 
-function initialCompletion () {
-  return Object.keys(handlerByCommandName).map((name) => ({ name }))
-}
+// function initialCompletion () {
+//   return Object.keys(handlerByCommandName).map((name) => ({ name }))
+// }
 
 export const pnpmCmds = handlerByCommandName
 

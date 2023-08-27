@@ -3,7 +3,7 @@ import { FILTERING } from '@pnpm/common-cli-options-help'
 import renderHelp from 'render-help'
 import * as run from './run'
 
-export const commandNames = ['test', 't', 'tst']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/test'
 
 export function help () {
   return renderHelp({

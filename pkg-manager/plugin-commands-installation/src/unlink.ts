@@ -5,12 +5,9 @@ import { createOrConnectStoreController, type CreateStoreControllerOptions } fro
 import { mutateModulesInSingleProject } from '@pnpm/core'
 import renderHelp from 'render-help'
 import { getOptionsFromRootManifest } from './getOptionsFromRootManifest'
-import { cliOptionsTypes, rcOptionsTypes } from './install'
 import { recursive } from './recursive'
 
-export { cliOptionsTypes, rcOptionsTypes }
-
-export const commandNames = ['unlink', 'dislink']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/unlink'
 
 export function help () {
   return renderHelp({

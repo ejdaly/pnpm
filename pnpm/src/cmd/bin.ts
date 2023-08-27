@@ -1,17 +1,7 @@
 import { docsUrl } from '@pnpm/cli-utils'
-import { types as allTypes } from '@pnpm/config'
-import pick from 'ramda/src/pick'
 import renderHelp from 'render-help'
 
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return pick([
-    'global',
-  ], allTypes)
-}
-
-export const commandNames = ['bin']
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from '../completion/bin'
 
 export function help () {
   return renderHelp({

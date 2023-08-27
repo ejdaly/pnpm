@@ -9,15 +9,7 @@ import {
 } from '@pnpm/os.env.path-extender'
 import renderHelp from 'render-help'
 
-export const rcOptionsTypes = () => ({})
-
-export const cliOptionsTypes = () => ({
-  force: Boolean,
-})
-
-export const shorthands = {}
-
-export const commandNames = ['setup']
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands } from './completions'
 
 export function help () {
   return renderHelp({

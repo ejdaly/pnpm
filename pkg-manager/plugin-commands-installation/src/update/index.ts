@@ -1,96 +1,20 @@
 import {
   docsUrl,
-  readDepNameCompletions,
   readProjectManifestOnly,
 } from '@pnpm/cli-utils'
-import { type CompletionFunc } from '@pnpm/command'
 import { FILTERING, OPTIONS, UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { types as allTypes } from '@pnpm/config'
 import { globalInfo } from '@pnpm/logger'
 import { createMatcher } from '@pnpm/matcher'
 import { outdatedDepsOfProjects } from '@pnpm/outdated'
 import { prompt } from 'enquirer'
 import chalk from 'chalk'
-import pick from 'ramda/src/pick'
 import unnest from 'ramda/src/unnest'
 import renderHelp from 'render-help'
 import { type InstallCommandOptions } from '../install'
 import { installDeps } from '../installDeps'
 import { getUpdateChoices } from './getUpdateChoices'
 
-export function rcOptionsTypes () {
-  return pick([
-    'cache-dir',
-    'depth',
-    'dev',
-    'engine-strict',
-    'fetch-retries',
-    'fetch-retry-factor',
-    'fetch-retry-maxtimeout',
-    'fetch-retry-mintimeout',
-    'fetch-timeout',
-    'force',
-    'global-dir',
-    'global-pnpmfile',
-    'global',
-    'https-proxy',
-    'ignore-pnpmfile',
-    'ignore-scripts',
-    'lockfile-dir',
-    'lockfile-directory',
-    'lockfile-only',
-    'lockfile',
-    'lockfile-include-tarball-url',
-    'network-concurrency',
-    'noproxy',
-    'npmPath',
-    'offline',
-    'only',
-    'optional',
-    'package-import-method',
-    'pnpmfile',
-    'prefer-offline',
-    'production',
-    'proxy',
-    'registry',
-    'reporter',
-    'save',
-    'save-exact',
-    'save-prefix',
-    'save-workspace-protocol',
-    'scripts-prepend-node-path',
-    'shamefully-flatten',
-    'shamefully-hoist',
-    'shared-workspace-lockfile',
-    'side-effects-cache-readonly',
-    'side-effects-cache',
-    'store',
-    'store-dir',
-    'unsafe-perm',
-    'use-running-store-server',
-  ], allTypes)
-}
-
-export function cliOptionsTypes () {
-  return {
-    ...rcOptionsTypes(),
-    interactive: Boolean,
-    latest: Boolean,
-    recursive: Boolean,
-    workspace: Boolean,
-  }
-}
-
-export const shorthands = {
-  D: '--dev',
-  P: '--production',
-}
-
-export const commandNames = ['update', 'up', 'upgrade']
-
-export const completion: CompletionFunc = async (cliOpts) => {
-  return readDepNameCompletions(cliOpts.dir as string)
-}
+export { cliOptionsTypes, rcOptionsTypes, commandNames, shorthands, completion } from '../completions/update'
 
 export function help () {
   return renderHelp({

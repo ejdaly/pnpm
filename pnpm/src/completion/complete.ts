@@ -1,9 +1,7 @@
 import { type Completion, type CompletionFunc } from '@pnpm/command'
-import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
-import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
-import { getOptionCompletions } from '../getOptionType'
+import { getOptionCompletions } from './getOptionType'
 import { optionTypesToCompletions } from '../optionTypesToCompletions'
-import { shorthands as universalShorthands } from '../shorthands'
+import { shorthands as universalShorthands } from './shorthands'
 
 export async function complete (
   ctx: {
@@ -30,11 +28,17 @@ export async function complete (
   // Autocompleting option values
   if (input.currentTypedWordType !== 'option') {
     if (input.lastOption === '--filter') {
-      const workspaceDir = await findWorkspaceDir(process.cwd()) ?? process.cwd()
-      const allProjects = await findWorkspacePackages(workspaceDir, {})
-      return allProjects
-        .filter(({ manifest }) => manifest.name)
-        .map(({ manifest }) => ({ name: manifest.name }))
+      try {
+        const { findWorkspaceDir } = await import('@pnpm/find-workspace-dir')
+        const { findWorkspacePackagesNoCheck } = await import('@pnpm/workspace.find-packages')
+        const workspaceDir = await findWorkspaceDir(process.cwd()) ?? process.cwd()
+        const allProjects = await findWorkspacePackagesNoCheck(workspaceDir, {})
+        return allProjects
+          .filter(({ manifest }) => manifest.name)
+          .map(({ manifest }) => ({ name: manifest.name }))
+      } catch {
+        return []
+      }
     } else if (input.lastOption) {
       const optionCompletions = getOptionCompletions(
         optionTypes as any, // eslint-disable-line
@@ -52,16 +56,21 @@ export async function complete (
   let completions: Completion[] = []
   if (input.currentTypedWordType !== 'option') {
     if (!input.cmd || input.currentTypedWordType === 'value' && !ctx.completionByCommandName[input.cmd]) {
+      // console.log("initial completion")
       completions = ctx.initialCompletion()
     } else if (ctx.completionByCommandName[input.cmd]) {
       try {
         completions = await ctx.completionByCommandName[input.cmd](input.options, input.params)
       } catch (err) {
         // Ignore
+        console.log(err)
       }
     }
   }
-  if (input.currentTypedWordType === 'value') {
+  // if (input.currentTypedWordType === 'value') {
+  //   return completions
+  // }
+  if (input.currentTypedWordType !== 'option') {
     return completions
   }
   if (!input.cmd) {

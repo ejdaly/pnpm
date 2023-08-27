@@ -3,10 +3,12 @@ import { FILTERING } from '@pnpm/common-cli-options-help'
 import { WANTED_LOCKFILE } from '@pnpm/constants'
 import renderHelp from 'render-help'
 
-export const rcOptionsTypes = () => ({})
-export const cliOptionsTypes = () => ({})
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from '../completion/recursive'
 
-export const commandNames = ['recursive', 'multi', 'm']
+// export const rcOptionsTypes = () => ({})
+// export const cliOptionsTypes = () => ({})
+
+// export const commandNames = ['recursive', 'multi', 'm']
 
 export function help () {
   return renderHelp({

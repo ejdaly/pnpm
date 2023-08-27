@@ -7,7 +7,7 @@ import {
   tryReadProjectManifest,
 } from '@pnpm/cli-utils'
 import { UNIVERSAL_OPTIONS } from '@pnpm/common-cli-options-help'
-import { type Config, types as allTypes } from '@pnpm/config'
+import { type Config } from '@pnpm/config'
 import { PnpmError } from '@pnpm/error'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { arrayOfWorkspacePackagesToMap, findWorkspacePackages } from '@pnpm/workspace.find-packages'
@@ -24,12 +24,13 @@ import {
 import { logger } from '@pnpm/logger'
 import pLimit from 'p-limit'
 import pathAbsolute from 'path-absolute'
-import pick from 'ramda/src/pick'
 import partition from 'ramda/src/partition'
 import renderHelp from 'render-help'
 import * as installCommand from './install'
 import { getOptionsFromRootManifest } from './getOptionsFromRootManifest'
 import { getSaveType } from './getSaveType'
+
+export { cliOptionsTypes, rcOptionsTypes, commandNames } from './completions/link'
 
 // @ts-expect-error
 const isWindows = process.platform === 'win32' || global['FAKE_WINDOWS']
@@ -46,27 +47,6 @@ type LinkOpts = CreateStoreControllerOptions & Pick<Config,
 | 'workspaceDir'
 | 'sharedWorkspaceLockfile'
 > & Partial<Pick<Config, 'linkWorkspacePackages'>>
-
-export const rcOptionsTypes = cliOptionsTypes
-
-export function cliOptionsTypes () {
-  return pick([
-    'global-dir',
-    'global',
-    'only',
-    'package-import-method',
-    'production',
-    'registry',
-    'reporter',
-    'save-dev',
-    'save-exact',
-    'save-optional',
-    'save-prefix',
-    'unsafe-perm',
-  ], allTypes)
-}
-
-export const commandNames = ['link', 'ln']
 
 export function help () {
   return renderHelp({

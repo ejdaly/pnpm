@@ -42,6 +42,7 @@
   },
   "funding": "https://opencollective.com/pnpm",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./lib/completions": "./lib/completions.js"
   }
 }
